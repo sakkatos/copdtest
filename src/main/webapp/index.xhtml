@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form >
+            <p:scrollPanel style="width:1250px" mode="native">
+                <p:commandButton value="add"
+                                 
+                                 onsuccess="insertItemDialog.show();"/>
+                <p:dataTable id="dataTable" value="#{controller.fooList}"  var="item">
+                    <p:column headerText="PID">#{item.pid}</p:column>
+                    <p:column headerText="HCode">#{item.hcode}</p:column>
+                    <p:column headerText="SVDate">#{item.svdDate}</p:column>
+                    <p:column headerText="HN">#{item.hn}</p:column>
+                    <p:column headerText="HN">#{item.hn}</p:column>
+                </p:dataTable>
+            </p:scrollPanel>
+        </h:form>
+        
+        
+        <p:dialog  widgetVar="insertItemDialog" >
+            <p:scrollPanel style="width:1100px ;height:400px" mode="native">
+                <h:form>
+                    <p:commandButton value="insert" /><br/>
+                    <p:panelGrid columns="6" >
+                        <h:outputText value="PID"/><h:outputText value="VARCHAR(15)"/>
+                        <p:inputText value="#{controller.foo.pid}"/>
+                        <h:outputText value="HCODE"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.foo.hcode}"/>
+                        <h:outputText value="SVDDate"/><h:outputText value="Date"/>
+                        <p:inputText value="#{controller.foo.svdDate}"/>
+                        <h:outputText value="HN"/><h:outputText value="VARCHAR(100)"/>
+                        <p:inputText value="#{controller.foo.hn}"/>
+                        <h:outputText value="BCH_DILATOR"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                        <p:inputText value="#{controller.foo.bch_dilator}"/>
+                        <h:outputText value="BW"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.bw}"/>
+                        <h:outputText value="HEIGHT"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.height}"/>
+                        <h:outputText value="DAY_SYMP"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                        <p:inputText value="#{controller.foo.day_symp}"/>
+                        <h:outputText value="FV12"/><h:outputText value="ENUM(0,1)"/>
+                        <p:inputText value="#{controller.foo.fv12}"/>
+                        <h:outputText value="FV12X"/><h:outputText value="ENUM(0,1"/>
+                        <p:inputText value="#{controller.foo.fv12x}"/>  
+                        <h:outputText value="FV14_1AN1"/><h:outputText value="DECIMAL(10,0)"/>
+                        <p:inputText value="#{controller.foo.FV14_1AN1}"/>
+                        <h:outputText value="FV14_1C"/><h:outputText value="VARCHAR(100)"/>
+                        <p:inputText value="#{controller.foo.FV14_1C}"/>    
+                        <h:outputText value="FV15"/><h:outputText value="ENUM(0,1)"/>
+                        <p:inputText value="#{controller.foo.FV15}"/>
+                        <h:outputText value="FV16"/><h:outputText value="ENUM(0,1)"/>
+                        <p:inputText value="#{controller.foo.FV16}"/>    
+                        <h:outputText value="FV17"/><h:outputText value="ENUM(0,1)"/>
+                        <p:inputText value="#{controller.foo.FV17}"/>
+                        <h:outputText value="FV18"/><h:outputText value="DECIMAL(3,0)"/>
+                        <p:inputText value="#{controller.foo.FV18}"/>    
+                        <h:outputText value="FV4"/><h:outputText value="ENUM(0,1)"/>
+                        <p:inputText value="#{controller.foo.FV4}"/>
+                        <h:outputText value="FV4X"/><h:outputText value="VARCHAR(2)"/>
+                        <p:inputText value="#{controller.foo.FV4x}"/>    
+                        <h:outputText value="FV5"/><h:outputText value="ENUM(0,1)"/>
+                        <p:inputText value="#{controller.foo.FV5}"/>
+                        <h:outputText value="FV5X1"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.foo.FV5x1}"/>    
+                        <h:outputText value="FV5X2"/><h:outputText value="VARCHAR(60)"/>
+                        <p:inputText value="#{controller.foo.FV5x2}"/>
+                        <h:outputText value="FV6"/><h:outputText value="ENUM(0,1,2,3)"/>
+                        <p:inputText value="#{controller.foo.FV6}"/>    
+                        <h:outputText value="FV6X"/><h:outputText value="VARCHAR(30)"/>
+                        <p:inputText value="#{controller.foo.FV6x}"/>
+                        <h:outputText value="FV7_0"/><h:outputText value="ENUM(0,1,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_0}"/>    
+                        <h:outputText value="FV7_0X"/><h:outputText value="VARCHAR(50)"/>
+                        <p:inputText value="#{controller.foo.FV7_0x}"/>
+                        <h:outputText value="FV7_1"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_1}"/>    
+                        <h:outputText value="FV7_1X"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_1x}"/>
+                        <h:outputText value="FV7_1XP"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_1xp}"/>    
+                        <h:outputText value="FV7_2"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_2}"/>
+                        <h:outputText value="FV7_2x"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_2x}"/>
+                        <h:outputText value="FV7_2xp"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_2xp}"/>
+                        <h:outputText value="FV7_3"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_3}"/>    
+                        <h:outputText value="FV7_3X"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_3x}"/>
+                        <h:outputText value="FV7_3XP"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_3xp}"/>    
+                        <h:outputText value="FV7_4"/><h:outputText value="DECIMAL(5,0)"/>
+                        <p:inputText value="#{controller.foo.FV7_4}"/>
+                        <h:outputText value="FV7_5"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_5}"/>    
+                        <h:outputText value="FV7_6"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_6}"/>
+                        <h:outputText value="FV7_6X"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_6x}"/>    
+                        <h:outputText value="FV7_6XP"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_6xp}"/>
+                        <h:outputText value="FV7_7"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_7}"/>    
+                        <h:outputText value="FV7_7X"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_7x}"/>
+                        <h:outputText value="FV7_7XP"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.FV7_7xp}"/>   
+                        <h:outputText value="FVC1"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC1}"/>    
+                        <h:outputText value="FVC2"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC2}"/>
+                        <h:outputText value="FVC3"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC3}"/>    
+                        <h:outputText value="FVC4"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC4}"/>
+                        <h:outputText value="FVC5"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC5}"/>    
+                        <h:outputText value="FVC6"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC6}"/>    
+                        <h:outputText value="FVC7"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC7}"/>
+                        <h:outputText value="FVC8"/><h:outputText value="DECIMAL(1,0)"/>
+                        <p:inputText value="#{controller.foo.FVC8}"/>    
+                        <h:outputText value="MRC"/><h:outputText value="ENUM(x,0,1,2,3,4)"/>
+                        <p:inputText value="#{controller.foo.MRC}"/>
+                        <h:outputText value="MWD"/><h:outputText value="DECIMAL(5,2)"/>
+                        <p:inputText value="#{controller.foo.MWD}"/>    
+                        <h:outputText value="NIGHT_SYMP"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                        <p:inputText value="#{controller.foo.NIGHT_SYMP}"/>    
+                        <h:outputText value="PEFR"/><h:outputText value="DECIMAL(6,2)"/>
+                        <p:inputText value="#{controller.foo.PEFR}"/>
+                        <h:outputText value="PEF_PREDICT"/><h:outputText value="DECIMAL(6,2)"/>
+                        <p:inputText value="#{controller.foo.PEF_PREDICT}"/>    
+                        <h:outputText value="SMKCES"/><h:outputText value="ENUM(1,2,3,4,5)"/>
+                        <p:inputText value="#{controller.foo.SMKCES}"/>
+                        <h:outputText value="SMKST"/><h:outputText value="ENUM(0,1,2)"/>
+                        <p:inputText value="#{controller.foo.SMKCES}"/>    
+                    </p:panelGrid> 
+                </h:form>
+            </p:scrollPanel>
+        </p:dialog>
+
+
+    </h:body>
+</html>
+
