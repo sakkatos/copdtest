@@ -7,11 +7,15 @@ package th.co.geniustree.training.copdtest;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -21,7 +25,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "Follow_up_test")
-public class FollowUpTest implements Serializable{
+public class FollowUpTest implements Serializable {
 
     @Id
     private String pid;
@@ -84,6 +88,19 @@ public class FollowUpTest implements Serializable{
     private Float PEF_PREDICT;
     private String SMKCES;
     private String SMKST;
+    @ManyToMany(targetEntity = Drug.class)
+    @JoinTable(name = "followup_drug",
+            joinColumns = @JoinColumn(name = "followup_id"),
+            inverseJoinColumns = @JoinColumn(name = "drug_id"))
+    private Collection<Drug> drugIDs;
+
+    public FollowUpTest() {
+
+    }
+
+    public FollowUpTest(String pid) {
+        this.pid = pid;
+    }
 
     public String getPid() {
         return pid;
@@ -102,8 +119,8 @@ public class FollowUpTest implements Serializable{
     }
 
     public Date getSvdDate() {
-        if(svdDate==null){
-            
+        if (svdDate == null) {
+
         }
         return svdDate;
     }
@@ -548,12 +565,18 @@ public class FollowUpTest implements Serializable{
         return SMKST;
     }
 
+    public Collection<Drug> getDrugIDs() {
+        return drugIDs;
+    }
+
+    public void setDrugIDs(Collection<Drug> drugIDs) {
+        this.drugIDs = drugIDs;
+    }
+
     public void setSMKST(String SMKST) {
         this.SMKST = SMKST;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -576,7 +599,4 @@ public class FollowUpTest implements Serializable{
         return true;
     }
 
-    
-    
-    
 }

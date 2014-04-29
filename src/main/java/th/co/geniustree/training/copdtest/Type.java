@@ -10,6 +10,6 @@ package th.co.geniustree.training.copdtest;
  *
  * @author Nook
  */
-public class FollowUpRepository {
-    
+public enum Type { 
+    OLD,NEW
 }
