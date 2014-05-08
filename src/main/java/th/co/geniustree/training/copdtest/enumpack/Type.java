@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package th.co.geniustree.training.copdtest;
+package th.co.geniustree.training.copdtest.enumpack;
 
 /**
  *

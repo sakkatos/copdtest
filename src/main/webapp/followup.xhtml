@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+    <h:outputText value="FollowUp" />
+    <h:form id="dataTableForm">
+        <p:scrollPanel style="width:1250px; height: 200px" mode="native">
+            <p:commandButton value="show all"
+                             actionListener="#{controller.findAllFollowUp()}"
+                             update=":dataTableForm"/>
+            <p:commandButton value="add"
+                             actionListener="#{controller.onCreateFollowUp()}"
+                             onsuccess="insertItemDialog.show();"/>
+            <p:dataTable value="#{controller.followUpList}"  var="item">
+                <p:column headerText="action" width="200">
+                    <p:commandButton value="edit"
+                                     update=":updateItemForm"
+                                     actionListener="#{controller.onSelectFollowUp()}"
+                                     oncomplete="updateItemDialog.show()">
+                        <f:param name="followUpId" value="#{item.id}"/>
+                    </p:commandButton >
+                    <p:commandButton value="remove"
+                                     update=":updateItemForm"
+                                     actionListener="#{controller.onSelectFollowUp()}"
+                                     oncomplete="removeItemDialog.show()">
+                        <f:param name="followUpId" value="#{item.id}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column headerText="FollowUpId">#{item.id}</p:column>
+                <p:column headerText="PID">#{item.pid}</p:column>
+                <p:column headerText="HCode">#{item.hcode}</p:column>
+                <p:column headerText="SVDate">#{item.svdDate}</p:column>
+                <p:column headerText="HN">#{item.hn}</p:column>
+                <p:column headerText="BCH_DILATOR">#{item.bch_dilator}</p:column>
+            </p:dataTable>
+        </p:scrollPanel>
+    </h:form>
+
+    <p:dialog widgetVar="removeItemDialog">
+        <p:scrollPanel style="height:400px" mode="native">
+            <h:form id="removeItemForm">
+                <p:panelGrid columns="2" >
+                    <h:outputText value="FollowUpId"/>
+                    <h:outputText value="#{controller.followUp.id}"/>
+                    <h:outputText value="PID"/>
+                    <h:outputText value="#{controller.followUp.pid}"/>
+                    <h:outputText value="HCODE"/>
+                    <h:outputText value="#{controller.followUp.hcode}"/>
+                    <h:outputText value="SVDDate"/>
+                    <h:outputText value="#{controller.followUp.svdDate}">
+                        <f:convertDateTime pattern="yyyy-mm-dd"/>
+                    </h:outputText>
+                    <h:outputText value="HN"/>
+                    <h:outputText value="#{controller.followUp.hn}"/>
+                </p:panelGrid> 
+                <p:commandButton value="remove"
+                                 oncomplete="removeItemDialog.hide()"
+                                 actionListener="#{controller.onRemoveFollowUp()}"
+                                 update=":dataTableForm, :notification"/><br/>
+            </h:form>
+        </p:scrollPanel>
+    </p:dialog>
+
+
+    <p:dialog widgetVar="updateItemDialog">
+        <p:scrollPanel style="width:1100px ;height:400px" mode="native">
+            <h:form id="updateItemForm">
+                <p:commandButton value="update"
+                                 update=":dataTableForm, :notification"
+                                 actionListener="#{controller.onUpdateFollowUp()}"
+                                 oncomplete="updateItemDialog.hide()"/><br/>
+                <p:panelGrid columns="6" >
+                    <h:outputText value="FollowUpId"/><h:outputText value="VARCHAR"/>
+                    <p:inputText value="#{controller.followUp.id}"/>
+                    <h:outputText value="PID"/><h:outputText value="VARCHAR(15)"/>
+                    <p:inputText value="#{controller.followUp.pid}"/>
+                    <h:outputText value="HCODE"/><h:outputText value="VARCHAR(5)"/>
+                    <p:inputText value="#{controller.followUp.hcode}"/>
+                    <h:outputText value="SVDDate"/><h:outputText value="Date"/>
+                    <p:inputText value="#{controller.followUp.svdDate}">
+                        <f:convertDateTime pattern="yyyy-mm-dd"/>
+                    </p:inputText>
+                    <h:outputText value="HN"/><h:outputText value="VARCHAR(100)"/>
+                    <p:inputText value="#{controller.followUp.hn}"/>
+                    <h:outputText value="BCH_DILATOR"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.bch_dilator}"/>
+                    <h:outputText value="BW"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.bw}"/>
+                    <h:outputText value="HEIGHT"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.height}"/>
+                    <h:outputText value="DAY_SYMP"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.day_symp}"/>
+                    <h:outputText value="FV12"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.fv12}"/>
+                    <h:outputText value="FV12X"/><h:outputText value="ENUM(0,1"/>
+                    <p:inputText value="#{controller.followUp.fv12x}"/>  
+                    <h:outputText value="FV14_1AN1"/><h:outputText value="DECIMAL(10,0)"/>
+                    <p:inputText value="#{controller.followUp.FV14_1AN1}"/>
+                    <h:outputText value="FV14_1C"/><h:outputText value="VARCHAR(100)"/>
+                    <p:inputText value="#{controller.followUp.FV14_1C}"/>    
+                    <h:outputText value="FV15"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV15}"/>
+                    <h:outputText value="FV16"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV16}"/>    
+                    <h:outputText value="FV17"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV17}"/>
+                    <h:outputText value="FV18"/><h:outputText value="DECIMAL(3,0)"/>
+                    <p:inputText value="#{controller.followUp.FV18}"/>    
+                    <h:outputText value="FV4"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV4}"/>
+                    <h:outputText value="FV4X"/><h:outputText value="VARCHAR(2)"/>
+                    <p:inputText value="#{controller.followUp.FV4x}"/>    
+                    <h:outputText value="FV5"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV5}"/>
+                    <h:outputText value="FV5X1"/><h:outputText value="VARCHAR(5)"/>
+                    <p:inputText value="#{controller.followUp.FV5x1}"/>    
+                    <h:outputText value="FV5X2"/><h:outputText value="VARCHAR(60)"/>
+                    <p:inputText value="#{controller.followUp.FV5x2}"/>
+                    <h:outputText value="FV6"/><h:outputText value="ENUM(0,1,2,3)"/>
+                    <p:inputText value="#{controller.followUp.FV6}"/>    
+                    <h:outputText value="FV6X"/><h:outputText value="VARCHAR(30)"/>
+                    <p:inputText value="#{controller.followUp.FV6x}"/>
+                    <h:outputText value="FV7_0"/><h:outputText value="ENUM(0,1,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_0}"/>    
+                    <h:outputText value="FV7_0X"/><h:outputText value="VARCHAR(50)"/>
+                    <p:inputText value="#{controller.followUp.FV7_0x}"/>
+                    <h:outputText value="FV7_1"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_1}"/>    
+                    <h:outputText value="FV7_1X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_1x}"/>
+                    <h:outputText value="FV7_1XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_1xp}"/>    
+                    <h:outputText value="FV7_2"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_2}"/>
+                    <h:outputText value="FV7_2x"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_2x}"/>
+                    <h:outputText value="FV7_2xp"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_2xp}"/>
+                    <h:outputText value="FV7_3"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_3}"/>    
+                    <h:outputText value="FV7_3X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_3x}"/>
+                    <h:outputText value="FV7_3XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_3xp}"/>    
+                    <h:outputText value="FV7_4"/><h:outputText value="DECIMAL(5,0)"/>
+                    <p:inputText value="#{controller.followUp.FV7_4}"/>
+                    <h:outputText value="FV7_5"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_5}"/>    
+                    <h:outputText value="FV7_6"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_6}"/>
+                    <h:outputText value="FV7_6X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_6x}"/>    
+                    <h:outputText value="FV7_6XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_6xp}"/>
+                    <h:outputText value="FV7_7"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_7}"/>    
+                    <h:outputText value="FV7_7X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_7x}"/>
+                    <h:outputText value="FV7_7XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_7xp}"/>   
+                    <h:outputText value="FVC1"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC1}"/>    
+                    <h:outputText value="FVC2"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC2}"/>
+                    <h:outputText value="FVC3"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC3}"/>    
+                    <h:outputText value="FVC4"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC4}"/>
+                    <h:outputText value="FVC5"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC5}"/>    
+                    <h:outputText value="FVC6"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC6}"/>    
+                    <h:outputText value="FVC7"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC7}"/>
+                    <h:outputText value="FVC8"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC8}"/>    
+                    <h:outputText value="MRC"/><h:outputText value="ENUM(x,0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.MRC}"/>
+                    <h:outputText value="MWD"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.MWD}"/>    
+                    <h:outputText value="NIGHT_SYMP"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.NIGHT_SYMP}"/>    
+                    <h:outputText value="PEFR"/><h:outputText value="DECIMAL(6,2)"/>
+                    <p:inputText value="#{controller.followUp.PEFR}"/>
+                    <h:outputText value="PEF_PREDICT"/><h:outputText value="DECIMAL(6,2)"/>
+                    <p:inputText value="#{controller.followUp.PEF_PREDICT}"/>    
+                    <h:outputText value="SMKCES"/><h:outputText value="ENUM(1,2,3,4,5)"/>
+                    <p:inputText value="#{controller.followUp.SMKCES}"/>
+                    <h:outputText value="SMKST"/><h:outputText value="ENUM(0,1,2)"/>
+                    <p:inputText value="#{controller.followUp.SMKCES}"/>    
+                </p:panelGrid> 
+            </h:form>
+        </p:scrollPanel>
+    </p:dialog>
+
+
+    <p:dialog  widgetVar="insertItemDialog" >
+        <p:scrollPanel style="width:1100px ;height:400px" mode="native">
+            <h:form>
+                <p:commandButton value="insert"
+                                 actionListener="#{controller.onInsertFollowUp()}"
+                                 oncomplete="insertItemDialog.hide()"
+                                 update=":dataTableForm, :notification"/><br/>
+                <p:panelGrid columns="6" >
+                    <h:outputText value="FollowUpId"/><h:outputText value="VARCHAR"/>
+                    <p:inputText value="#{controller.followUp.id}"/>
+                    <h:outputText value="PID"/><h:outputText value="VARCHAR(15)"/>
+                    <p:inputText value="#{controller.followUp.pid}"/>
+                    <h:outputText value="HCODE"/><h:outputText value="VARCHAR(5)"/>
+                    <p:inputText value="#{controller.followUp.hcode}"/>
+                    <h:outputText value="SVDDate"/><h:outputText value="Date"/>
+                    <p:inputText value="#{controller.followUp.svdDate}">
+                        <f:convertDateTime pattern="yyyy-mm-dd"/>
+                    </p:inputText>
+                    <h:outputText value="HN"/><h:outputText value="VARCHAR(100)"/>
+                    <p:inputText value="#{controller.followUp.hn}"/>
+                    <h:outputText value="BCH_DILATOR"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.bch_dilator}"/>
+                    <h:outputText value="BW"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.bw}"/>
+                    <h:outputText value="HEIGHT"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.height}"/>
+                    <h:outputText value="DAY_SYMP"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.day_symp}"/>
+                    <h:outputText value="FV12"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.fv12}"/>
+                    <h:outputText value="FV12X"/><h:outputText value="ENUM(0,1"/>
+                    <p:inputText value="#{controller.followUp.fv12x}"/>  
+                    <h:outputText value="FV14_1AN1"/><h:outputText value="DECIMAL(10,0)"/>
+                    <p:inputText value="#{controller.followUp.FV14_1AN1}"/>
+                    <h:outputText value="FV14_1C"/><h:outputText value="VARCHAR(100)"/>
+                    <p:inputText value="#{controller.followUp.FV14_1C}"/>    
+                    <h:outputText value="FV15"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV15}"/>
+                    <h:outputText value="FV16"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV16}"/>    
+                    <h:outputText value="FV17"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV17}"/>
+                    <h:outputText value="FV18"/><h:outputText value="DECIMAL(3,0)"/>
+                    <p:inputText value="#{controller.followUp.FV18}"/>    
+                    <h:outputText value="FV4"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV4}"/>
+                    <h:outputText value="FV4X"/><h:outputText value="VARCHAR(2)"/>
+                    <p:inputText value="#{controller.followUp.FV4x}"/>    
+                    <h:outputText value="FV5"/><h:outputText value="ENUM(0,1)"/>
+                    <p:inputText value="#{controller.followUp.FV5}"/>
+                    <h:outputText value="FV5X1"/><h:outputText value="VARCHAR(5)"/>
+                    <p:inputText value="#{controller.followUp.FV5x1}"/>    
+                    <h:outputText value="FV5X2"/><h:outputText value="VARCHAR(60)"/>
+                    <p:inputText value="#{controller.followUp.FV5x2}"/>
+                    <h:outputText value="FV6"/><h:outputText value="ENUM(0,1,2,3)"/>
+                    <p:inputText value="#{controller.followUp.FV6}"/>    
+                    <h:outputText value="FV6X"/><h:outputText value="VARCHAR(30)"/>
+                    <p:inputText value="#{controller.followUp.FV6x}"/>
+                    <h:outputText value="FV7_0"/><h:outputText value="ENUM(0,1,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_0}"/>    
+                    <h:outputText value="FV7_0X"/><h:outputText value="VARCHAR(50)"/>
+                    <p:inputText value="#{controller.followUp.FV7_0x}"/>
+                    <h:outputText value="FV7_1"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_1}"/>    
+                    <h:outputText value="FV7_1X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_1x}"/>
+                    <h:outputText value="FV7_1XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_1xp}"/>    
+                    <h:outputText value="FV7_2"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_2}"/>
+                    <h:outputText value="FV7_2x"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_2x}"/>
+                    <h:outputText value="FV7_2xp"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_2xp}"/>
+                    <h:outputText value="FV7_3"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_3}"/>    
+                    <h:outputText value="FV7_3X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_3x}"/>
+                    <h:outputText value="FV7_3XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_3xp}"/>    
+                    <h:outputText value="FV7_4"/><h:outputText value="DECIMAL(5,0)"/>
+                    <p:inputText value="#{controller.followUp.FV7_4}"/>
+                    <h:outputText value="FV7_5"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_5}"/>    
+                    <h:outputText value="FV7_6"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_6}"/>
+                    <h:outputText value="FV7_6X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_6x}"/>    
+                    <h:outputText value="FV7_6XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_6xp}"/>
+                    <h:outputText value="FV7_7"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_7}"/>    
+                    <h:outputText value="FV7_7X"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_7x}"/>
+                    <h:outputText value="FV7_7XP"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.FV7_7xp}"/>   
+                    <h:outputText value="FVC1"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC1}"/>    
+                    <h:outputText value="FVC2"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC2}"/>
+                    <h:outputText value="FVC3"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC3}"/>    
+                    <h:outputText value="FVC4"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC4}"/>
+                    <h:outputText value="FVC5"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC5}"/>    
+                    <h:outputText value="FVC6"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC6}"/>    
+                    <h:outputText value="FVC7"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC7}"/>
+                    <h:outputText value="FVC8"/><h:outputText value="DECIMAL(1,0)"/>
+                    <p:inputText value="#{controller.followUp.FVC8}"/>    
+                    <h:outputText value="MRC"/><h:outputText value="ENUM(x,0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.MRC}"/>
+                    <h:outputText value="MWD"/><h:outputText value="DECIMAL(5,2)"/>
+                    <p:inputText value="#{controller.followUp.MWD}"/>    
+                    <h:outputText value="NIGHT_SYMP"/><h:outputText value="ENUM(0,1,2,3,4)"/>
+                    <p:inputText value="#{controller.followUp.NIGHT_SYMP}"/>    
+                    <h:outputText value="PEFR"/><h:outputText value="DECIMAL(6,2)"/>
+                    <p:inputText value="#{controller.followUp.PEFR}"/>
+                    <h:outputText value="PEF_PREDICT"/><h:outputText value="DECIMAL(6,2)"/>
+                    <p:inputText value="#{controller.followUp.PEF_PREDICT}"/>    
+                    <h:outputText value="SMKCES"/><h:outputText value="ENUM(1,2,3,4,5)"/>
+                    <p:inputText value="#{controller.followUp.SMKCES}"/>
+                    <h:outputText value="SMKST"/><h:outputText value="ENUM(0,1,2)"/>
+                    <p:inputText value="#{controller.followUp.SMKCES}"/>    
+                </p:panelGrid> 
+            </h:form>
+        </p:scrollPanel>
+    </p:dialog>  
+
+
+</ui:composition>

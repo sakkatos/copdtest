@@ -3,19 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package th.co.geniustree.training.copdtest;
+package th.co.geniustree.training.copdtest.model;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -28,33 +30,46 @@ import javax.persistence.Temporal;
 public class FollowUpTest implements Serializable {
 
     @Id
-    private String pid;
+    @Column(name = "followup_id")
+    private String id;
+    @Column(length = 5)
     private String hcode;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date svdDate;
     private String hn;
+    @Column(length = 1)
     private String bch_dilator;
     private Float bw;
     private Float height;
     private String day_symp;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fv10;
-    private String fv12;
-    private String fv12x;
+    @Column(length = 1)
+    private String fv12 = "0";
+    @Column(length = 1)
+    private String fv12x = "0";
+    @Column(length = 1)
     private BigInteger FV14_1AN1;
     private String FV14_1C;
-    private String FV15;
-    private String FV16;
-    private String FV17;
+    @Column(length = 1)
+    private String FV15 = "0";
+    @Column(length = 1)
+    private String FV16 = "0";
+    @Column(length = 1)
+    private String FV17 = "0";
     private Integer FV18;
-    private String FV4;
+    @Column(length = 1)
+    private String FV4 = "0";
     private String FV4x;
-    private String FV5;
+    @Column(length = 1)
+    private String FV5 = "0";
     private String FV5x1;
     private String FV5x2;
-    private String FV6;
+    @Column(length = 1)
+    private String FV6 = "0";
     private String FV6x;
-    private String FV7_0;
+    @Column(length = 1)
+    private String FV7_0 = "0";
     private String FV7_0x;
     private Float FV7_1;
     private Float FV7_1x;
@@ -81,23 +96,32 @@ public class FollowUpTest implements Serializable {
     private Integer FVC6;
     private Integer FVC7;
     private Integer FVC8;
-    private String MRC;
+    @Column(length = 1)
+    private String MRC = "x";
     private Float MWD;
-    private String NIGHT_SYMP;
+    @Column(length = 1)
+    private String NIGHT_SYMP = "0";
     private Float PEFR;
     private Float PEF_PREDICT;
-    private String SMKCES;
-    private String SMKST;
-    @ManyToMany(targetEntity = Drug.class)
+    @Column(length = 1)
+    private String SMKCES = "1";
+    @Column(length = 1)
+    private String SMKST = "0";
+
+    @ManyToOne(targetEntity = Patient.class)
+    @Column(length = 15)
+    private String pid;
+
+    @ManyToMany(targetEntity = Drug.class, fetch = FetchType.LAZY)
     @JoinTable(name = "followup_drug",
-            joinColumns = @JoinColumn(name = "followup_id"),
-            inverseJoinColumns = @JoinColumn(name = "drug_id"))
-    private Collection<Drug> drugIDs;
+            joinColumns = @JoinColumn(name = "followup_ids"),
+            inverseJoinColumns = @JoinColumn(name = "drug_ids"))
+    private List<Drug> drugIDs;
 
     public FollowUpTest() {
 
     }
-
+    
     public FollowUpTest(String pid) {
         this.pid = pid;
     }
@@ -565,11 +589,11 @@ public class FollowUpTest implements Serializable {
         return SMKST;
     }
 
-    public Collection<Drug> getDrugIDs() {
+    public List<Drug> getDrugIDs() {
         return drugIDs;
     }
 
-    public void setDrugIDs(Collection<Drug> drugIDs) {
+    public void setDrugIDs(List<Drug> drugIDs) {
         this.drugIDs = drugIDs;
     }
 
@@ -577,10 +601,18 @@ public class FollowUpTest implements Serializable {
         this.SMKST = SMKST;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.pid);
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -593,7 +625,7 @@ public class FollowUpTest implements Serializable {
             return false;
         }
         final FollowUpTest other = (FollowUpTest) obj;
-        if (!Objects.equals(this.pid, other.pid)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;

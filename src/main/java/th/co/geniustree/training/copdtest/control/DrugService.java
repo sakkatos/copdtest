@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package th.co.geniustree.training.copdtest;
+package th.co.geniustree.training.copdtest.control;
 
+import th.co.geniustree.training.copdtest.model.Drug;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

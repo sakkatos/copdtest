@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package th.co.geniustree.training.copdtest;
+package th.co.geniustree.training.copdtest.model;
 
+import th.co.geniustree.training.copdtest.enumpack.Type;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -37,8 +38,10 @@ public class Drug implements Serializable {
     private Date svdDate;
     @Enumerated(EnumType.STRING)
     private Type type;
+    @Column(name = "drug_name")
+    private String drugName;
     @ManyToMany(targetEntity = FollowUpTest.class,mappedBy = "drugIDs")
-    private Collection<FollowUpTest> pids;
+    private List<FollowUpTest> followUpIds;
 
     public Drug() {
 
@@ -80,14 +83,22 @@ public class Drug implements Serializable {
         this.svdDate = svdDate;
     }
 
-    public Collection<FollowUpTest> getPids() {
-        return pids;
+    public String getDrugName() {
+        return drugName;
     }
 
-    public void setPids(Collection<FollowUpTest> pids) {
-        this.pids = pids;
+    public void setDrugName(String drugName) {
+        this.drugName = drugName;
     }
 
+    public List<FollowUpTest> getFollowUpIds() {
+        return followUpIds;
+    }
+
+    public void setFollowUpIds(List<FollowUpTest> followUpIds) {
+        this.followUpIds = followUpIds;
+    }
+    
 
 
     @Override

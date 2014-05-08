@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+    
+        <h:outputText value="Drug" />
+        <h:form id="drugTableForm">
+            <p:scrollPanel style="width:1250px; height: 200px" mode="native">
+                <p:commandButton value="show all"
+                                 actionListener="#{controller.findAllDrug()}"
+                                 update=":drugTableForm"/>
+                <p:commandButton value="add"
+                                 update=":insertDrugForm"
+                                 oncomplete="insertDrugDialog.show()"
+                                 actionListener="#{controller.onCreateDrug()}"/>
+                <p:dataTable value="#{controller.drugList}"  var="drug">
+                    <p:column headerText="action" width="200">
+                        <p:commandButton value="edit"
+                                         update=":updateDrugForm"
+                                         actionListener="#{controller.onSelectDrug()}"
+                                         oncomplete="updateDrugDialog.show()">
+                            <f:param name="drugId" value="#{drug.drugId}"/>
+                        </p:commandButton >
+                        <p:commandButton value="remove"
+                                         update=":removeDrugForm"
+                                         actionListener="#{controller.onSelectDrug()}"
+                                         oncomplete="removeDrugDialog.show()">
+                            <f:param name="drugId" value="#{drug.drugId}"/>
+                        </p:commandButton>
+                    </p:column>
+                    <p:column headerText="DrugId">#{drug.drugId}</p:column>
+                    <p:column headerText="HCode">#{drug.hcode}</p:column>
+                    <p:column headerText="SVDdate">#{drug.svdDate}</p:column>
+                    <p:column headerText="Type">#{drug.type}</p:column>
+                </p:dataTable>
+            </p:scrollPanel>
+        </h:form>
+
+        <p:dialog  widgetVar="insertDrugDialog" >
+            <p:scrollPanel style="width:1100px ;height:400px" mode="native">
+                <h:form id="insertDrugForm">
+                    <p:commandButton value="insert"
+                                     actionListener="#{controller.onInsertDrug()}"
+                                     oncomplete="insertDrugDialog.hide()"
+                                     update=":drugTableForm, :notification"/><br/>
+                    <p:panelGrid columns="6" >
+                        <h:outputText value="Drugid"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.drug.drugId}"/>
+                        <h:outputText value="HCODE"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.drug.hcode}"/>
+                        <h:outputText value="SVDdate"/><h:outputText value="Date"/>
+                        <p:inputText value="#{controller.drug.svdDate}">
+                            <f:convertDateTime pattern="yyyy-mm-dd"/>
+                        </p:inputText>
+                        <h:outputText value="Type"/><h:outputText value="ENUM(OLD,NEW)"/>
+                        <p:inputText value="#{controller.drug.type}"/>
+                    </p:panelGrid> 
+                </h:form>
+            </p:scrollPanel>
+        </p:dialog>
+
+        <p:dialog  widgetVar="updateDrugDialog" >
+            <p:scrollPanel style="width:1100px ;height:400px" mode="native">
+                <h:form id="updateDrugForm">
+                    <p:commandButton value="update"
+                                     actionListener="#{controller.onUpdateDrug()}"
+                                     oncomplete="updateDrugDialog.hide()"
+                                     update=":drugTableForm, :notification"/><br/>
+                    <p:panelGrid columns="6" >
+                        <h:outputText value="Drugid"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.drug.drugId}"/>
+                        <h:outputText value="HCODE"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.drug.hcode}"/>
+                        <h:outputText value="SVDdate"/><h:outputText value="Date)"/>
+                        <p:inputText value="#{controller.drug.svdDate}">
+                            <f:convertDateTime pattern="yyyy-mm-dd"/>
+                        </p:inputText>
+                        <h:outputText value="Type"/><h:outputText value="ENUM(OLD,NEW)"/>
+                        <p:inputText value="#{controller.drug.type}"/>
+                    </p:panelGrid> 
+                </h:form>
+            </p:scrollPanel>
+        </p:dialog>
+
+        <p:dialog  widgetVar="removeDrugDialog" >
+            <p:scrollPanel style="width:1100px ;height:400px" mode="native">
+                <h:form id="removeDrugForm">
+                    <p:commandButton value="remove"
+                                     actionListener="#{controller.onRemoveDrug()}"
+                                     oncomplete="removeDrugDialog.hide()"
+                                     update=":drugTableForm, :notification"/><br/>
+                    <p:panelGrid columns="6" >
+                        <h:outputText value="Drugid"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.drug.drugId}"/>
+                        <h:outputText value="HCODE"/><h:outputText value="VARCHAR(5)"/>
+                        <p:inputText value="#{controller.drug.hcode}"/>
+                        <h:outputText value="SVDdate"/><h:outputText value="Date)"/>
+                        <p:inputText value="#{controller.drug.svdDate}">
+                            <f:convertDateTime pattern="yyyy-mm-dd"/>
+                        </p:inputText>
+                        <h:outputText value="Type"/><h:outputText value="ENUM(OLD,NEW)"/>
+                        <p:inputText value="#{controller.drug.type}"/>
+                    </p:panelGrid> 
+                </h:form>
+            </p:scrollPanel>
+        </p:dialog>
+
+        <h:form id="searchForm">
+            <p:commandButton value="search" 
+                             update=":searchForm"
+                             actionListener="#{controller.seachDrugByPid()}"/>
+            <p:dataTable value="#{controller.results}" var="item2">
+                <p:column headerText="PID">#{item2.pid}</p:column>
+                <p:column headerText="DrugName">#{item2.drugName}</p:column>
+            </p:dataTable>
+        </h:form>
+</ui:composition>
+
